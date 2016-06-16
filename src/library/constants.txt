@@ -47,6 +47,8 @@ eq.trans
 eq_of_heq
 eq_rec_heq
 exists.elim
+expr
+expr.beta
 functor
 functorIO
 false
@@ -203,8 +205,7 @@ prod.pr1
 prod.pr2
 propext
 qexpr
-qexpr.subst
-to_qexpr
+qexpr.beta
 quot.mk
 quot.lift
 rat.divide
@@ -227,6 +228,8 @@ subtype.tag
 subtype.elt_of
 subtype.rec
 tactic
+to_expr
+to_qexpr
 to_string
 trans_rel_left
 trans_rel_right

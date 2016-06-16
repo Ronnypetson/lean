@@ -9,7 +9,7 @@ import init.meta.expr
 /- Quoted expressions. They can be converted into expressions by using a tactic. -/
 meta_constant qexpr : Type₁
 protected meta_constant qexpr.of_expr : expr → qexpr
-protected meta_constant qexpr.subst   : qexpr → qexpr → qexpr
+protected meta_constant qexpr.beta    : qexpr → qexpr → qexpr
 
 meta_constant qexpr.to_string : qexpr → string
 meta_definition qexpr.has_to_string [instance] : has_to_string qexpr :=

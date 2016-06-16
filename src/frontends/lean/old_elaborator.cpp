@@ -41,6 +41,7 @@ Author: Leonardo de Moura
 #include "library/choice_iterator.h"
 #include "library/projection.h"
 #include "library/trace.h"
+#include "library/quote.h"
 #include "library/pp_options.h"
 #include "library/class_instance_resolution.h"
 #include "library/error_handling.h"
@@ -1695,6 +1696,15 @@ expr old_elaborator::visit_checkpoint_expr(expr const & e, constraint_seq & cs) 
     return m;
 }
 
+expr old_elaborator::visit_quote(expr const & e) {
+    expr const & q = get_quote_expr(e);
+    old_elaborator aux_elaborator(m_ctx);
+    expr r; level_param_names ls;
+    // TODO(Leo): in the new elaborator, we should not convert the unassigned universe metavariables into parameters.
+    std::tie(r, ls) = aux_elaborator(list<expr>(), q, false);
+    return mk_elaborated_quote(r);
+}
+
 expr old_elaborator::visit_core(expr const & e, constraint_seq & cs) {
     if (is_prenum(e)) {
         return visit_prenum(e, cs);
@@ -1706,6 +1716,8 @@ expr old_elaborator::visit_core(expr const & e, constraint_seq & cs) {
         return visit_let_value(e, cs);
     } else if (is_by(e)) {
         return visit_by(e, none_expr(), cs);
+    } else if (is_elaborated_quote(e)) {
+        return visit_quote(e);
     } else if (is_calc_annotation(e)) {
         return visit_calc_proof(e, none_expr(), cs);
     } else if (is_no_info(e)) {

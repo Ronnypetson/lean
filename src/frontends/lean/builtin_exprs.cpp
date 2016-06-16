@@ -604,6 +604,15 @@ static expr parse_antiquote_expr(parser & p, unsigned, expr const *, pos_info co
     return p.save_pos(mk_antiquote(e), pos);
 }
 
+static expr parse_elaborated_quoted_expr(parser & p, unsigned, expr const *, pos_info const & pos) {
+    if (p.in_quote())
+        throw parser_error("invalid nested quoted expression", pos);
+    parser::quote_scope scope(p, true);
+    expr e = p.parse_expr();
+    p.check_token_next(get_rcurly_tk(), "invalid quoted expression, `}` expected");
+    return p.save_pos(mk_elaborated_quote(e), pos);
+}
+
 parse_table init_nud_table() {
     action Expr(mk_expr_action());
     action Skip(mk_skip_action());
@@ -624,6 +633,7 @@ parse_table init_nud_table() {
     r = r.add({transition("(", Expr), transition(":", Expr), transition(")", mk_ext_action(parse_typed_expr))}, x0);
     r = r.add({transition("?(", Expr), transition(")", mk_ext_action(parse_inaccessible))}, x0);
     r = r.add({transition("`(", mk_ext_action(parse_quoted_expr))}, x0);
+    r = r.add({transition("`{", mk_ext_action(parse_elaborated_quoted_expr))}, x0);
     r = r.add({transition("%%", mk_ext_action(parse_antiquote_expr))}, x0);
     r = r.add({transition("⌞", Expr), transition("⌟", mk_ext_action(parse_inaccessible))}, x0);
     r = r.add({transition("(:", Expr), transition(":)", mk_ext_action(parse_pattern))}, x0);

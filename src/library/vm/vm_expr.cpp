@@ -289,6 +289,16 @@ vm_obj expr_lower_vars(vm_obj const & e, vm_obj const & n1, vm_obj const & n2) {
         return e;
 }
 
+vm_obj expr_beta(vm_obj const & _e1, vm_obj const & _e2) {
+    expr const & e1 = to_expr(_e1);
+    expr const & e2 = to_expr(_e2);
+    if (is_lambda(e1)) {
+        return to_obj(instantiate(binding_body(e1), e2));
+    } else {
+        return to_obj(e1);
+    }
+}
+
 void initialize_vm_expr() {
     DECLARE_VM_BUILTIN(name({"expr", "var"}),              expr_var);
     DECLARE_VM_BUILTIN(name({"expr", "sort"}),             expr_sort);
@@ -318,6 +328,7 @@ void initialize_vm_expr() {
     DECLARE_VM_BUILTIN(name({"expr", "has_meta_var"}),     expr_has_meta_var);
     DECLARE_VM_BUILTIN(name({"expr", "lift_vars"}),        expr_lift_vars);
     DECLARE_VM_BUILTIN(name({"expr", "lower_vars"}),       expr_lower_vars);
+    DECLARE_VM_BUILTIN(name({"expr", "beta"}),             expr_beta);
     DECLARE_VM_CASES_BUILTIN(name({"expr", "cases_on"}),   expr_cases_on);
 }
 

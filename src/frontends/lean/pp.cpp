@@ -897,7 +897,9 @@ auto pretty_fn::pp_macro(expr const & e) -> result {
     if (is_explicit(e)) {
         return pp_explicit(e);
     } else if (is_quote(e)) {
-        return result(format("`(") + nest(2, pp(get_quote_expr(e)).fmt()) + format(")"));
+        format open  = is_elaborated_quote(e) ? format("`{") : format("`(");
+        format close = is_elaborated_quote(e) ? format("}") : format(")");
+        return result(open + nest(2, pp(get_quote_expr(e)).fmt()) + close);
     } else if (is_lazy_abstraction(e)) {
         return pp_lazy_abstraction(e);
     } else if (is_inaccessible(e)) {

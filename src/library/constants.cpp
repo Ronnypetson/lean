@@ -52,6 +52,8 @@ name const * g_eq_trans = nullptr;
 name const * g_eq_of_heq = nullptr;
 name const * g_eq_rec_heq = nullptr;
 name const * g_exists_elim = nullptr;
+name const * g_expr = nullptr;
+name const * g_expr_beta = nullptr;
 name const * g_functor = nullptr;
 name const * g_functorIO = nullptr;
 name const * g_false = nullptr;
@@ -208,8 +210,7 @@ name const * g_prod_pr1 = nullptr;
 name const * g_prod_pr2 = nullptr;
 name const * g_propext = nullptr;
 name const * g_qexpr = nullptr;
-name const * g_qexpr_subst = nullptr;
-name const * g_to_qexpr = nullptr;
+name const * g_qexpr_beta = nullptr;
 name const * g_quot_mk = nullptr;
 name const * g_quot_lift = nullptr;
 name const * g_rat_divide = nullptr;
@@ -232,6 +233,8 @@ name const * g_subtype_tag = nullptr;
 name const * g_subtype_elt_of = nullptr;
 name const * g_subtype_rec = nullptr;
 name const * g_tactic = nullptr;
+name const * g_to_expr = nullptr;
+name const * g_to_qexpr = nullptr;
 name const * g_to_string = nullptr;
 name const * g_trans_rel_left = nullptr;
 name const * g_trans_rel_right = nullptr;
@@ -299,6 +302,8 @@ void initialize_constants() {
     g_eq_of_heq = new name{"eq_of_heq"};
     g_eq_rec_heq = new name{"eq_rec_heq"};
     g_exists_elim = new name{"exists", "elim"};
+    g_expr = new name{"expr"};
+    g_expr_beta = new name{"expr", "beta"};
     g_functor = new name{"functor"};
     g_functorIO = new name{"functorIO"};
     g_false = new name{"false"};
@@ -455,8 +460,7 @@ void initialize_constants() {
     g_prod_pr2 = new name{"prod", "pr2"};
     g_propext = new name{"propext"};
     g_qexpr = new name{"qexpr"};
-    g_qexpr_subst = new name{"qexpr", "subst"};
-    g_to_qexpr = new name{"to_qexpr"};
+    g_qexpr_beta = new name{"qexpr", "beta"};
     g_quot_mk = new name{"quot", "mk"};
     g_quot_lift = new name{"quot", "lift"};
     g_rat_divide = new name{"rat", "divide"};
@@ -479,6 +483,8 @@ void initialize_constants() {
     g_subtype_elt_of = new name{"subtype", "elt_of"};
     g_subtype_rec = new name{"subtype", "rec"};
     g_tactic = new name{"tactic"};
+    g_to_expr = new name{"to_expr"};
+    g_to_qexpr = new name{"to_qexpr"};
     g_to_string = new name{"to_string"};
     g_trans_rel_left = new name{"trans_rel_left"};
     g_trans_rel_right = new name{"trans_rel_right"};
@@ -547,6 +553,8 @@ void finalize_constants() {
     delete g_eq_of_heq;
     delete g_eq_rec_heq;
     delete g_exists_elim;
+    delete g_expr;
+    delete g_expr_beta;
     delete g_functor;
     delete g_functorIO;
     delete g_false;
@@ -703,8 +711,7 @@ void finalize_constants() {
     delete g_prod_pr2;
     delete g_propext;
     delete g_qexpr;
-    delete g_qexpr_subst;
-    delete g_to_qexpr;
+    delete g_qexpr_beta;
     delete g_quot_mk;
     delete g_quot_lift;
     delete g_rat_divide;
@@ -727,6 +734,8 @@ void finalize_constants() {
     delete g_subtype_elt_of;
     delete g_subtype_rec;
     delete g_tactic;
+    delete g_to_expr;
+    delete g_to_qexpr;
     delete g_to_string;
     delete g_trans_rel_left;
     delete g_trans_rel_right;
@@ -794,6 +803,8 @@ name const & get_eq_trans_name() { return *g_eq_trans; }
 name const & get_eq_of_heq_name() { return *g_eq_of_heq; }
 name const & get_eq_rec_heq_name() { return *g_eq_rec_heq; }
 name const & get_exists_elim_name() { return *g_exists_elim; }
+name const & get_expr_name() { return *g_expr; }
+name const & get_expr_beta_name() { return *g_expr_beta; }
 name const & get_functor_name() { return *g_functor; }
 name const & get_functorIO_name() { return *g_functorIO; }
 name const & get_false_name() { return *g_false; }
@@ -950,8 +961,7 @@ name const & get_prod_pr1_name() { return *g_prod_pr1; }
 name const & get_prod_pr2_name() { return *g_prod_pr2; }
 name const & get_propext_name() { return *g_propext; }
 name const & get_qexpr_name() { return *g_qexpr; }
-name const & get_qexpr_subst_name() { return *g_qexpr_subst; }
-name const & get_to_qexpr_name() { return *g_to_qexpr; }
+name const & get_qexpr_beta_name() { return *g_qexpr_beta; }
 name const & get_quot_mk_name() { return *g_quot_mk; }
 name const & get_quot_lift_name() { return *g_quot_lift; }
 name const & get_rat_divide_name() { return *g_rat_divide; }
@@ -974,6 +984,8 @@ name const & get_subtype_tag_name() { return *g_subtype_tag; }
 name const & get_subtype_elt_of_name() { return *g_subtype_elt_of; }
 name const & get_subtype_rec_name() { return *g_subtype_rec; }
 name const & get_tactic_name() { return *g_tactic; }
+name const & get_to_expr_name() { return *g_to_expr; }
+name const & get_to_qexpr_name() { return *g_to_qexpr; }
 name const & get_to_string_name() { return *g_to_string; }
 name const & get_trans_rel_left_name() { return *g_trans_rel_left; }
 name const & get_trans_rel_right_name() { return *g_trans_rel_right; }

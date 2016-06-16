@@ -54,6 +54,7 @@ meta_constant expr.abstract_fvs : expr → list name → expr
 
 meta_constant expr.instantiate_var  : expr → expr → expr
 meta_constant expr.instantiate_vars : expr → list expr → expr
+meta_constant expr.beta : expr → expr → expr
 
 meta_constant expr.has_var : expr → bool
 meta_constant expr.has_var_idx : expr → nat → bool
@@ -61,3 +62,12 @@ meta_constant expr.has_free_var : expr → bool
 meta_constant expr.has_meta_var : expr → bool
 meta_constant expr.lift_vars  : expr → nat → nat → expr
 meta_constant expr.lower_vars : expr → nat → nat → expr
+
+structure has_to_expr [class] (A : Type) :=
+(to_expr : A → expr)
+
+meta_definition to_expr {A : Type} [has_to_expr A] : A → expr :=
+has_to_expr.to_expr
+
+meta_definition expr.has_to_expr [instance] : has_to_expr expr :=
+has_to_expr.mk id
